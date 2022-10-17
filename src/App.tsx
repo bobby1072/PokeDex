@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { Box } from "@mui/material";
+import React from "react";
+import FSTextField from "./Common/TextBoxStyle";
+const title = require("./images/title.png");
+function App(): JSX.Element {
+  React.useEffect(() => {
+    document.title = "Pokedex";
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="topLevelDiv">
+      <div className="MainBox">
+        <img src={title} alt="title" />
+        <Box
+          component="form"
+          sx={{ display: "flex", mb: 1 }}
+          noValidate
+          autoComplete="off"
+          className="centerDiv--DictVersion"
         >
-          Learn React
-        </a>
-      </header>
+          <FSTextField
+            sx={{ mr: 2, width: 350 }}
+            id="reddit-input"
+            label="Pokemon name"
+            variant="filled"
+          />
+        </Box>
+      </div>
     </div>
   );
 }
