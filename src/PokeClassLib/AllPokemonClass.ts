@@ -8,3 +8,4 @@ class AllPoke {
     });
   }
 }
+export default AllPoke;
