@@ -7,5 +7,19 @@ class AllPoke {
       return new PokemonMinimal(element.name, element.url);
     });
   }
+  searchPokemon(searchTerm: string): PokemonMinimal[] | [] {
+    const foundPokemonArr: PokemonMinimal[] | [] = this.AllPokemonArray.filter(
+      (element) => {
+        if (element.PokemonName.toLowerCase().includes(searchTerm)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    ).map((element) => {
+      return element;
+    });
+    return foundPokemonArr;
+  }
 }
 export default AllPoke;

@@ -22,6 +22,14 @@ export interface Istats {
   base_stat: string;
   stat: IlowLevelRef;
 }
+export interface IdamageRelations {
+  double_damage_from: IlowLevelRef[];
+  double_damage_to: IlowLevelRef[];
+  half_damage_from: IlowLevelRef[];
+  half_damage_to: IlowLevelRef[];
+  no_damage_from: IlowLevelRef[];
+  no_damage_to: IlowLevelRef[];
+}
 export interface IPokemonFullConstructorArgs {
   abilities: Iability[];
   base_experience: number;
