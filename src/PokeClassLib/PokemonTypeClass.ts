@@ -1,14 +1,14 @@
-import httpClient from "../utils/httpClient";
+import httpClient from "../Common/utils/httpClient";
 import { Itype, IdamageRelations } from "./Ipokemon";
 class Type {
-  TypeName: string;
-  TypeURL: string;
-  DamageRelations?: IdamageRelations;
-  constructor(type: Itype) {
+  public TypeName: string;
+  public TypeURL: string;
+  public DamageRelations?: IdamageRelations;
+  public constructor(type: Itype) {
     this.TypeName = type.type.name;
     this.TypeURL = type.type.url;
   }
-  async getTypeInfoRequest() {
+  public async getTypeInfoRequest() {
     const typeInfoRequest = await httpClient.get(this.TypeURL);
     const typeInfoResp = await typeInfoRequest.data;
     this.DamageRelations = typeInfoResp.damage_relations;

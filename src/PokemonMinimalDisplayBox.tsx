@@ -1,4 +1,5 @@
 import { Box, ThemeProvider, createTheme } from "@mui/system";
+import PokemonFull from "./PokeClassLib/PokemonFullClass";
 import PokemonMinimal from "./PokeClassLib/PokeMonMin";
 
 const theme = createTheme({
@@ -20,14 +21,25 @@ const theme = createTheme({
 });
 interface IPokemonMinimalDisplayBoxProps {
   PokemonOBJ: PokemonMinimal;
+  goBackOrSetNewFish: (args: PokemonFull | boolean) => void;
 }
 interface IPokemonMinimalArrayProps {
   PokemonObjs: PokemonMinimal[];
+  goBackOrSetNewFish: (args: PokemonFull | boolean) => void;
 }
 function PokemonMinimalDisplayBox(props: IPokemonMinimalDisplayBoxProps) {
   return (
     <div className="projects">
-      <div className="centerDiv--viewCatches">
+      <div
+        className="centerDiv--viewCatches"
+        onClick={async () => {
+          await props.PokemonOBJ.fullPokeReq();
+          props.PokemonOBJ.PokemonInfo &&
+            props.goBackOrSetNewFish(
+              new PokemonFull(props.PokemonOBJ.PokemonInfo)
+            );
+        }}
+      >
         <ThemeProvider theme={theme}>
           <Box
             sx={{
@@ -57,7 +69,12 @@ const MapPokemonMinimalToBoxes = (props: IPokemonMinimalArrayProps) => {
   return (
     <div>
       {allPokesMin.map((Element) => {
-        return <PokemonMinimalDisplayBox PokemonOBJ={Element} />;
+        return (
+          <PokemonMinimalDisplayBox
+            PokemonOBJ={Element}
+            goBackOrSetNewFish={props.goBackOrSetNewFish}
+          />
+        );
       })}
     </div>
   );

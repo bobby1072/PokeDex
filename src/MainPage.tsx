@@ -4,12 +4,17 @@ import React from "react";
 import AllPoke from "./PokeClassLib/AllPokemonClass";
 import PokemonMinimal from "./PokeClassLib/PokeMonMin";
 import MapPokemonMinimalToBoxes from "./PokemonMinimalDisplayBox";
+import PokemonFull from "./PokeClassLib/PokemonFullClass";
 const title = require("./images/title.png");
 function MainPage() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [foundPokes, setFoundPokes] = React.useState<PokemonMinimal[]>();
+  const [chosePokemon, setChoosePokemon] = React.useState<
+    PokemonFull | boolean
+  >(false);
   const [searchButtonLoading, setSearchButtonLoading] = React.useState(false);
   const searchButtonPress = async () => {
+    setChoosePokemon(false);
     setSearchButtonLoading(true);
     if (searchTerm) {
       const allPokes = new AllPoke();
@@ -29,10 +34,18 @@ function MainPage() {
     <div>
       <div className="topLevelDiv">
         <div className="MainBox">
-          <img src={title} alt="title" />
+          <Box
+            component="img"
+            sx={{
+              height: 233,
+              width: 550,
+            }}
+            src={title}
+            alt="title"
+          />
           <Box
             component="form"
-            sx={{ display: "flex", mb: 1 }}
+            sx={{ display: "flex", mb: 1, mt: 4 }}
             noValidate
             autoComplete="off"
             className="centerDiv--DictVersion"
@@ -47,6 +60,7 @@ function MainPage() {
               label="Pokemon name"
               variant="outlined"
               onChange={(search) => {
+                setChoosePokemon(false);
                 setSearchButtonLoading(false);
                 setSearchTerm(search.target.value);
               }}
@@ -63,7 +77,14 @@ function MainPage() {
           </Box>
         </div>
       </div>
-      {foundPokes && <MapPokemonMinimalToBoxes PokemonObjs={foundPokes} />}
+      {foundPokes && !chosePokemon && (
+        <MapPokemonMinimalToBoxes
+          PokemonObjs={foundPokes}
+          goBackOrSetNewFish={(args) => {
+            setChoosePokemon(args);
+          }}
+        />
+      )}
     </div>
   );
 }

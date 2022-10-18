@@ -7,17 +7,17 @@ import {
 } from "./Ipokemon";
 import Type from "./PokemonTypeClass";
 class PokemonFull {
-  Id: number;
-  PokemonName: string;
-  BaseXP: number;
-  Height: number;
-  Weight: number;
-  Abilties: Iability[];
-  GameVersions: IgameVersions[];
-  Moves: Imoves[];
-  Types: Type[];
-  Stats: Istats[];
-  constructor(pokemonDetails: IPokemonFullConstructorArgs) {
+  public Id: number;
+  public PokemonName: string;
+  public BaseXP: number;
+  public Height: number;
+  public Weight: number;
+  public Abilties: Iability[];
+  public GameVersions: IgameVersions[];
+  public Moves: Imoves[];
+  public Types: Type[];
+  public Stats: Istats[];
+  public constructor(pokemonDetails: IPokemonFullConstructorArgs) {
     this.Id = pokemonDetails.id;
     this.PokemonName = pokemonDetails.name;
     this.BaseXP = pokemonDetails.base_experience;
@@ -31,7 +31,7 @@ class PokemonFull {
     });
     this.Stats = pokemonDetails.stats;
   }
-  async getTypeEffectives() {
+  public async getTypeEffectives(): Promise<void> {
     for (const type of this.Types) {
       await type.getTypeInfoRequest();
     }
