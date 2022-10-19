@@ -10,7 +10,9 @@ class AllPoke {
   public searchPokemon(searchTerm: string): PokemonMinimal[] | [] {
     const foundPokemonArr: PokemonMinimal[] | [] = this.AllPokemonArray.filter(
       (element) => {
-        if (element.PokemonName.toLowerCase().includes(searchTerm)) {
+        if (
+          element.PokemonName.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
           return true;
         } else {
           return false;

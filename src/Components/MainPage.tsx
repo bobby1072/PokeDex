@@ -1,35 +1,20 @@
 import { Box, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import React from "react";
-import AllPoke from "./PokeClassLib/AllPokemonClass";
-import PokemonMinimal from "./PokeClassLib/PokeMonMin";
+import AllPoke from "../PokeClassLib/AllPokemonClass";
+import PokemonMinimal from "../PokeClassLib/PokeMonMin";
 import MapPokemonMinimalToBoxes from "./PokemonMinimalDisplayBox";
-import PokemonFull from "./PokeClassLib/PokemonFullClass";
+import PokemonFull from "../PokeClassLib/PokemonFullClass";
 const title = require("./images/title.png");
-function MainPage() {
-  const [searchTerm, setSearchTerm] = React.useState("");
+function MainPage(): JSX.Element {
+  const allPokes = new AllPoke();
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [foundPokes, setFoundPokes] = React.useState<PokemonMinimal[]>();
   const [chosePokemon, setChoosePokemon] = React.useState<
     PokemonFull | boolean
   >(false);
-  const [searchButtonLoading, setSearchButtonLoading] = React.useState(false);
-  const searchButtonPress = async () => {
-    setChoosePokemon(false);
-    setSearchButtonLoading(true);
-    if (searchTerm) {
-      const allPokes = new AllPoke();
-      setFoundPokes(allPokes.searchPokemon(searchTerm));
-    }
-    setSearchButtonLoading(false);
-    /*
-      await myPokes[555].fullPokeReq();
-      const myPoke =
-        allPokes.AllPokemonArray[555].PokemonInfo &&
-        new PokemonFull(allPokes.AllPokemonArray[555].PokemonInfo);
-      await myPoke?.getTypeEffectives();
-      console.log(myPoke);
-      */
-  };
+  const [searchButtonLoading, setSearchButtonLoading] =
+    React.useState<boolean>(false);
   return (
     <div>
       <div className="topLevelDiv">
@@ -59,7 +44,7 @@ function MainPage() {
               id="outlined-basic"
               label="Pokemon name"
               variant="outlined"
-              onChange={(search) => {
+              onChange={(search): void => {
                 setChoosePokemon(false);
                 setSearchButtonLoading(false);
                 setSearchTerm(search.target.value);
@@ -70,7 +55,22 @@ function MainPage() {
               sx={{ width: 100 }}
               loading={searchButtonLoading}
               variant="contained"
-              onClick={searchButtonPress}
+              onClick={async (): Promise<void> => {
+                setSearchButtonLoading(true);
+                setChoosePokemon(false);
+                if (searchTerm) {
+                  setFoundPokes(allPokes.searchPokemon(searchTerm));
+                }
+                setSearchButtonLoading(false);
+                /*
+                  await myPokes[555].fullPokeReq();
+                  const myPoke =
+                    allPokes.AllPokemonArray[555].PokemonInfo &&
+                    new PokemonFull(allPokes.AllPokemonArray[555].PokemonInfo);
+                  await myPoke?.getTypeEffectives();
+                  console.log(myPoke);
+                  */
+              }}
             >
               Search
             </LoadingButton>

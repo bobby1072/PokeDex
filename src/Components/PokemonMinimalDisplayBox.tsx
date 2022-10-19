@@ -1,6 +1,6 @@
 import { Box, ThemeProvider, createTheme } from "@mui/system";
-import PokemonFull from "./PokeClassLib/PokemonFullClass";
-import PokemonMinimal from "./PokeClassLib/PokeMonMin";
+import PokemonFull from "../PokeClassLib/PokemonFullClass";
+import PokemonMinimal from "../PokeClassLib/PokeMonMin";
 
 const theme = createTheme({
   palette: {
@@ -27,7 +27,9 @@ interface IPokemonMinimalArrayProps {
   PokemonObjs: PokemonMinimal[];
   goBackOrSetNewFish: (args: PokemonFull | boolean) => void;
 }
-function PokemonMinimalDisplayBox(props: IPokemonMinimalDisplayBoxProps) {
+function PokemonMinimalDisplayBox(
+  props: IPokemonMinimalDisplayBoxProps
+): JSX.Element {
   return (
     <div className="projects">
       <div
@@ -64,7 +66,9 @@ function PokemonMinimalDisplayBox(props: IPokemonMinimalDisplayBoxProps) {
     </div>
   );
 }
-const MapPokemonMinimalToBoxes = (props: IPokemonMinimalArrayProps) => {
+const MapPokemonMinimalToBoxes = (
+  props: IPokemonMinimalArrayProps
+): JSX.Element => {
   const allPokesMin = props.PokemonObjs;
   return (
     <div>
