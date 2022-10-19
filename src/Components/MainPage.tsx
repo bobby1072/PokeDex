@@ -5,7 +5,7 @@ import AllPoke from "../PokeClassLib/AllPokemonClass";
 import PokemonMinimal from "../PokeClassLib/PokeMonMin";
 import MapPokemonMinimalToBoxes from "./PokemonMinimalDisplayBox";
 import PokemonFull from "../PokeClassLib/PokemonFullClass";
-const title = require("./images/title.png");
+const title = require("../images/title.png");
 function MainPage(): JSX.Element {
   const allPokes = new AllPoke();
   const [searchTerm, setSearchTerm] = React.useState<string>("");
@@ -42,7 +42,7 @@ function MainPage(): JSX.Element {
               sx={{ mr: 2 }}
               value={searchTerm}
               id="outlined-basic"
-              label="Pokemon name"
+              label="Pokemon name or index"
               variant="outlined"
               onChange={(search): void => {
                 setChoosePokemon(false);
@@ -62,14 +62,6 @@ function MainPage(): JSX.Element {
                   setFoundPokes(allPokes.searchPokemon(searchTerm));
                 }
                 setSearchButtonLoading(false);
-                /*
-                  await myPokes[555].fullPokeReq();
-                  const myPoke =
-                    allPokes.AllPokemonArray[555].PokemonInfo &&
-                    new PokemonFull(allPokes.AllPokemonArray[555].PokemonInfo);
-                  await myPoke?.getTypeEffectives();
-                  console.log(myPoke);
-                  */
               }}
             >
               Search

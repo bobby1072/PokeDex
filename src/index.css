@@ -29,13 +29,23 @@ code {
   justify-content: center;
 }
 .MainBox{
-  margin: 25px 20px 25px 20px;
+  margin: 15px 20px 15px 20px;
   padding: 1rem;
   text-align: center;
   width: 90%;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
  background-color: crimson;
+}
+.DisplayAllPokesDiv{
+  max-height: 500px;
+  background-color: rgb(194, 194, 194);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow: auto;
+  margin: 15px 20px 15px 20px;
+  width: 90%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 .centerDiv--DictVersion{
   justify-content: center;

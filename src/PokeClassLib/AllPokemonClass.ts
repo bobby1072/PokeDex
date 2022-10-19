@@ -7,9 +7,23 @@ class AllPoke {
       return new PokemonMinimal(element.name, element.url);
     });
   }
-  public searchPokemon(searchTerm: string): PokemonMinimal[] | [] {
-    const foundPokemonArr: PokemonMinimal[] | [] = this.AllPokemonArray.filter(
-      (element) => {
+  private isNumeric(value: string | number): boolean {
+    if (typeof value === "string") {
+      return /^-?\d+$/.test(value);
+    } else if (typeof value === "number") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public searchPokemon(searchTerm: string | number): PokemonMinimal[] | [] {
+    let foundPokemonArr: PokemonMinimal[] | [] = [];
+    if (
+      searchTerm &&
+      typeof searchTerm === "string" &&
+      !this.isNumeric(searchTerm)
+    ) {
+      foundPokemonArr = this.AllPokemonArray.filter((element) => {
         if (
           element.PokemonName.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
@@ -17,10 +31,15 @@ class AllPoke {
         } else {
           return false;
         }
-      }
-    ).map((element) => {
-      return element;
-    });
+      }).map((element) => {
+        return element;
+      });
+    } else if (searchTerm && this.isNumeric(searchTerm)) {
+      const foundIndex: PokemonMinimal | undefined = this.AllPokemonArray.find(
+        (element) => Number(searchTerm) === element.PokemonIndex
+      );
+      foundIndex instanceof PokemonMinimal && (foundPokemonArr = [foundIndex]);
+    }
     return foundPokemonArr;
   }
 }

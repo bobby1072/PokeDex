@@ -71,15 +71,17 @@ const MapPokemonMinimalToBoxes = (
 ): JSX.Element => {
   const allPokesMin = props.PokemonObjs;
   return (
-    <div>
-      {allPokesMin.map((Element) => {
-        return (
-          <PokemonMinimalDisplayBox
-            PokemonOBJ={Element}
-            goBackOrSetNewFish={props.goBackOrSetNewFish}
-          />
-        );
-      })}
+    <div className="topLevelDiv">
+      <div className="DisplayAllPokesDiv">
+        {allPokesMin.map((Element) => {
+          return (
+            <PokemonMinimalDisplayBox
+              PokemonOBJ={Element}
+              goBackOrSetNewFish={props.goBackOrSetNewFish}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
