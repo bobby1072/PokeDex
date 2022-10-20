@@ -5,6 +5,7 @@ import AllPoke from "../PokeClassLib/AllPokemonClass";
 import PokemonMinimal from "../PokeClassLib/PokeMonMin";
 import MapPokemonMinimalToBoxes from "./PokemonMinimalDisplayBox";
 import PokemonFull from "../PokeClassLib/PokemonFullClass";
+import PokemonInfo from "./PokemonDisplayPage";
 const title = require("../images/title.png");
 function MainPage(): JSX.Element {
   const allPokes = new AllPoke();
@@ -74,6 +75,14 @@ function MainPage(): JSX.Element {
           PokemonObjs={foundPokes}
           goBackOrSetNewFish={(args) => {
             setChoosePokemon(args);
+          }}
+        />
+      )}
+      {chosePokemon instanceof PokemonFull && (
+        <PokemonInfo
+          PokemonObj={chosePokemon}
+          goBack={() => {
+            setChoosePokemon(false);
           }}
         />
       )}
