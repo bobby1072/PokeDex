@@ -16,6 +16,12 @@ code {
   justify-content: center;
   align-items: center;
 }
+.pokemonDisplayPageDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .centerDiv--viewCatches{
   overflow: hidden;
   background-color: rgb(255, 255, 255); 
