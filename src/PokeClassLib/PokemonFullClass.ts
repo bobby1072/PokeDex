@@ -32,9 +32,11 @@ class PokemonFull {
     this.Stats = pokemonDetails.stats;
   }
   public async getTypeEffectives(): Promise<void> {
+    const typeTaskList: Promise<void>[] = [];
     for (const type of this.Types) {
-      await type.getTypeInfoRequest();
+      typeTaskList.push(type.getTypeInfoRequest());
     }
+    Promise.all(typeTaskList);
   }
 }
 export default PokemonFull;

@@ -8,7 +8,7 @@ class Type {
     this.TypeName = type.type.name;
     this.TypeURL = type.type.url;
   }
-  public async getTypeInfoRequest() {
+  public async getTypeInfoRequest(): Promise<void> {
     const typeInfoRequest = await httpClient.get(this.TypeURL);
     const typeInfoResp = await typeInfoRequest.data;
     this.DamageRelations = typeInfoResp.damage_relations;

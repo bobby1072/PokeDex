@@ -18,11 +18,7 @@ class AllPoke {
   }
   public searchPokemon(searchTerm: string | number): PokemonMinimal[] | [] {
     let foundPokemonArr: PokemonMinimal[] | [] = [];
-    if (
-      searchTerm &&
-      typeof searchTerm === "string" &&
-      !this.isNumeric(searchTerm)
-    ) {
+    if (typeof searchTerm === "string" && !this.isNumeric(searchTerm)) {
       foundPokemonArr = this.AllPokemonArray.filter((element) => {
         if (
           element.PokemonName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -34,7 +30,7 @@ class AllPoke {
       }).map((element) => {
         return element;
       });
-    } else if (searchTerm && this.isNumeric(searchTerm)) {
+    } else if (this.isNumeric(searchTerm)) {
       const foundIndex: PokemonMinimal | undefined = this.AllPokemonArray.find(
         (element) => Number(searchTerm) === element.PokemonIndex
       );

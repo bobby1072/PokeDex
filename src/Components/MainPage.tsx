@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import React from "react";
 import AllPoke from "../PokeClassLib/AllPokemonClass";
@@ -6,6 +6,7 @@ import PokemonMinimal from "../PokeClassLib/PokeMonMin";
 import MapPokemonMinimalToBoxes from "./PokemonMinimalDisplayBox";
 import PokemonFull from "../PokeClassLib/PokemonFullClass";
 import PokemonInfo from "./PokemonDisplayPage";
+import FSTextField from "../Common/TextBoxStyle";
 const title = require("../images/title.png");
 function MainPage(): JSX.Element {
   const allPokes = new AllPoke();
@@ -36,21 +37,14 @@ function MainPage(): JSX.Element {
             autoComplete="off"
             className="centerDiv--DictVersion"
           >
-            <TextField
-              style={{
-                backgroundColor: "white",
-              }}
-              sx={{ mr: 2 }}
-              value={searchTerm}
-              id="outlined-basic"
+            <FSTextField
+              sx={{ mr: 2, width: 150 }}
               label="Pokemon name or index"
-              variant="outlined"
               onChange={(search): void => {
                 setChoosePokemon(false);
                 setSearchButtonLoading(false);
                 setSearchTerm(search.target.value);
               }}
-              InputProps={{ style: { color: "red" } }}
             />
             <LoadingButton
               sx={{ width: 100 }}
