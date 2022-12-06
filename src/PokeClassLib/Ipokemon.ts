@@ -1,3 +1,5 @@
+import { StringLiteral } from "typescript";
+
 interface IlowLevelRef {
   name: string;
   url: string;
@@ -19,8 +21,12 @@ export interface Itype {
   type: IlowLevelRef;
 }
 export interface Istats {
-  base_stat: string;
+  base_stat: number;
   stat: IlowLevelRef;
+}
+export interface IstatsWithAvg {
+  stats: Istats[];
+  Average: number;
 }
 export interface IdamageRelations {
   double_damage_from: IlowLevelRef[];
@@ -45,8 +51,18 @@ export interface IPokemonFullConstructorArgs {
   order: number;
   past_types: [];
   species: object;
-  sprites: object;
+  sprites: ISprites;
   stats: Istats[];
   types: Itype[];
   weight: number;
+}
+export interface ISprites {
+  back_default?: string;
+  back_female?: string;
+  back_shiny?: string;
+  back_female_shiny?: string;
+  front_default: string;
+  front_female?: string;
+  front_shiny: string;
+  front_shiny_female?: string;
 }
