@@ -93,56 +93,71 @@ class PokemonFull {
       damageCatIndex.set(4, "four_times_damage_to");
       damageCatIndex.set(1, "half_damage_from");
       damageCatIndex.set(-1, "half_damage_to");
-      this.Types.forEach((element: Type, index: number) => {
+      this.Types.forEach((element: Type) => {
         element.DamageRelations &&
           element.DamageRelations.double_damage_from.forEach(
             (ele: IlowLevelRef) => {
-              damageMap.set(ele.name, 2);
+              const checkIfDamageAlreadyExists: number | undefined =
+                damageMap.get(ele.name);
+              if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 * 2);
+              else damageMap.set(ele.name, checkIfDamageAlreadyExists * 2);
             }
           );
         element.DamageRelations &&
           element.DamageRelations.double_damage_to.forEach(
             (ele: IlowLevelRef) => {
-              damageMap.set(ele.name, -2);
+              const checkIfDamageAlreadyExists: number | undefined =
+                damageMap.get(ele.name);
+              if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 / 2);
+              else damageMap.set(ele.name, checkIfDamageAlreadyExists / 2);
             }
           );
         element.DamageRelations &&
           element.DamageRelations.half_damage_from.forEach(
             (ele: IlowLevelRef) => {
-              damageMap.set(ele.name, 1);
+              const checkIfDamageAlreadyExists: number | undefined =
+                damageMap.get(ele.name);
+              if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 / 2);
+              else damageMap.set(ele.name, checkIfDamageAlreadyExists / 2);
             }
           );
         element.DamageRelations &&
           element.DamageRelations.half_damage_to.forEach(
             (ele: IlowLevelRef) => {
-              damageMap.set(ele.name, -1);
+              const checkIfDamageAlreadyExists: number | undefined =
+                damageMap.get(ele.name);
+              if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 * 2);
+              else damageMap.set(ele.name, checkIfDamageAlreadyExists * 2);
             }
           );
       });
       const typeDamageScore: ITypeDamageScore[] = [];
       this.Types.forEach((element: Type) => {
         const damageRelTempObj: Object = element.DamageRelations || {};
-        Object.values(damageRelTempObj).forEach((deepElement) => {
-          const checkTypeExist: ITypeDamageScore | undefined =
-            typeDamageScore.find((arrayEle) => {
-              return arrayEle.TypeName === deepElement.TypeName;
-            });
-          const damageMapRelation: number =
-            damageMap.get(deepElement.TypeName) || 0;
-          if (!checkTypeExist) {
-            typeDamageScore.push({
-              TypeName: deepElement.TypeName,
-              score: damageMapRelation,
-            });
-          } else {
-            const indexOfType: number = typeDamageScore.indexOf(checkTypeExist);
-            typeDamageScore.splice(indexOfType, 1);
-            typeDamageScore.push({
-              TypeName: deepElement.TypeName,
-              score: checkTypeExist.score + damageMapRelation,
-            });
-          }
-        });
+        Object.values(damageRelTempObj)
+          .flatMap((ele) => ele)
+          .forEach((deepElement) => {
+            const checkTypeExist: ITypeDamageScore | undefined =
+              typeDamageScore.find((arrayEle) => {
+                return arrayEle.TypeName === deepElement.name;
+              });
+            const damageMapRelation: number =
+              damageMap.get(deepElement.name) || 0;
+            if (!checkTypeExist) {
+              typeDamageScore.push({
+                TypeName: deepElement.name,
+                score: damageMapRelation,
+              });
+            } else {
+              const indexOfType: number =
+                typeDamageScore.indexOf(checkTypeExist);
+              typeDamageScore.splice(indexOfType, 1);
+              typeDamageScore.push({
+                TypeName: deepElement.name,
+                score: checkTypeExist.score + damageMapRelation,
+              });
+            }
+          });
       });
       const typeEffectiveWithGroups: (ITypeAndGroup | null)[] = typeDamageScore
         .map((element: ITypeDamageScore) => {
