@@ -9,21 +9,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
-import { Istats, IstatsWithAvg } from "../PokeClassLib/Ipokemon";
+import { Istats, IstatsWithAvgAndTotal } from "../PokeClassLib/Ipokemon";
 interface IPokemonInfoPropsArgs {
   PokemonObj: PokemonFull;
   goBack: () => void;
 }
 interface ITableArgs {
-  stats: IstatsWithAvg;
+  stats: IstatsWithAvgAndTotal;
 }
 function StatTable(stat: ITableArgs): JSX.Element {
   return (
     <TableContainer
       component={Paper}
-      sx={{ minWidth: 350, maxWidth: 500, mt: 1 }}
+      sx={{ minWidth: 350, maxWidth: 750, mt: 1, maxHeight: 200 }}
     >
-      <Table sx={{ minWidth: 350, maxWidth: 500 }} aria-label="simple table">
+      <Table sx={{ minWidth: 350, maxWidth: 750, maxHeight: 200 }}>
         <TableHead>
           <TableRow>
             <TableCell>Stat name</TableCell>
@@ -49,7 +49,16 @@ function StatTable(stat: ITableArgs): JSX.Element {
             <TableCell>
               <h4>Average</h4>
             </TableCell>
-            <TableCell align="right">{stat.stats.Average}</TableCell>
+            <TableCell align="right">{stat.stats.average}</TableCell>
+          </TableRow>
+          <TableRow
+            key="Total"
+            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+          >
+            <TableCell>
+              <h4>Total</h4>
+            </TableCell>
+            <TableCell align="right">{stat.stats.total}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

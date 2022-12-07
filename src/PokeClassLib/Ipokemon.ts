@@ -1,5 +1,3 @@
-import { StringLiteral } from "typescript";
-
 interface IlowLevelRef {
   name: string;
   url: string;
@@ -24,9 +22,10 @@ export interface Istats {
   base_stat: number;
   stat: IlowLevelRef;
 }
-export interface IstatsWithAvg {
+export interface IstatsWithAvgAndTotal {
   stats: Istats[];
-  Average: number;
+  average: number;
+  total: number;
 }
 export interface IdamageRelations {
   double_damage_from: IlowLevelRef[];
