@@ -1,6 +1,4 @@
-import { StringLiteral } from "typescript";
-
-interface IlowLevelRef {
+export interface IlowLevelRef {
   name: string;
   url: string;
 }
@@ -24,9 +22,10 @@ export interface Istats {
   base_stat: number;
   stat: IlowLevelRef;
 }
-export interface IstatsWithAvg {
+export interface IstatsWithAvgAndTotal {
   stats: Istats[];
-  Average: number;
+  average: number;
+  total: number;
 }
 export interface IdamageRelations {
   double_damage_from: IlowLevelRef[];
@@ -35,6 +34,16 @@ export interface IdamageRelations {
   half_damage_to: IlowLevelRef[];
   no_damage_from: IlowLevelRef[];
   no_damage_to: IlowLevelRef[];
+}
+export interface IPokemonDamageRelations {
+  double_damage_from: (string | undefined)[];
+  double_damage_to: (string | undefined)[];
+  half_damage_from: (string | undefined)[];
+  half_damage_to: (string | undefined)[];
+  no_damage_from?: (string | undefined)[];
+  no_damage_to?: (string | undefined)[];
+  four_times_damage_from: (string | undefined)[];
+  four_times_damage_to: (string | undefined)[];
 }
 export interface IPokemonFullConstructorArgs {
   abilities: Iability[];

@@ -9,21 +9,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
-import { Istats, IstatsWithAvg } from "../PokeClassLib/Ipokemon";
+import { Istats, IstatsWithAvgAndTotal } from "../PokeClassLib/Ipokemon";
 interface IPokemonInfoPropsArgs {
   PokemonObj: PokemonFull;
   goBack: () => void;
 }
 interface ITableArgs {
-  stats: IstatsWithAvg;
+  stats: IstatsWithAvgAndTotal;
 }
 function StatTable(stat: ITableArgs): JSX.Element {
   return (
     <TableContainer
       component={Paper}
-      sx={{ minWidth: 350, maxWidth: 500, mt: 1 }}
+      sx={{ minWidth: 350, maxWidth: 750, mt: 1, maxHeight: 200 }}
     >
-      <Table sx={{ minWidth: 350, maxWidth: 500 }} aria-label="simple table">
+      <Table
+        sx={{ minWidth: 350, maxWidth: 750, maxHeight: 200 }}
+        aria-label="simple table"
+      >
         <TableHead>
           <TableRow>
             <TableCell>Stat name</TableCell>
@@ -33,10 +36,7 @@ function StatTable(stat: ITableArgs): JSX.Element {
         <TableBody>
           {stat.stats.stats.map((element: Istats) => {
             return (
-              <TableRow
-                key={element.stat.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
+              <TableRow key={element.stat.name} sx={{ color: "#ba000d" }}>
                 <TableCell>{element.stat.name}</TableCell>
                 <TableCell align="right">{element.base_stat}</TableCell>
               </TableRow>
@@ -49,7 +49,17 @@ function StatTable(stat: ITableArgs): JSX.Element {
             <TableCell>
               <h4>Average</h4>
             </TableCell>
-            <TableCell align="right">{stat.stats.Average}</TableCell>
+            <TableCell align="right">
+              <h4>{stat.stats.average}</h4>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <h4>Total</h4>
+            </TableCell>
+            <TableCell align="right">
+              <h4>{stat.stats.total}</h4>
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -60,7 +70,7 @@ function PokemonInfo(props: IPokemonInfoPropsArgs): JSX.Element {
   const Pokemon: PokemonFull = props.PokemonObj;
   useEffect(() => {
     const getTypes = async () => {
-      await Pokemon.getTypeEffectives();
+      await Pokemon.workOutFinalTypeEffectives();
     };
     getTypes();
   }, [Pokemon]);
