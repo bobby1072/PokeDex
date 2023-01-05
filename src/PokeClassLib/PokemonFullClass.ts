@@ -1,6 +1,8 @@
 import {
   Iability,
   IgameVersions,
+  IKilosAndGrams,
+  IMetersAndCentiMeters,
   Imoves,
   IPokemonFullConstructorArgs,
   Istats,
@@ -12,13 +14,31 @@ class PokemonFull {
   public readonly PokemonName: string;
   public readonly BaseXP: number;
   public readonly SpriteImageUrl: string;
-  public readonly Height: number;
-  public readonly Weight: number;
+  public readonly Height: IMetersAndCentiMeters;
+  public readonly Weight: IKilosAndGrams;
   public readonly Abilties: Iability[];
   public readonly GameVersions: IgameVersions[];
   public readonly Moves: Imoves[];
   public readonly Types: Type[];
   public readonly Stats: IstatsWithAvgAndTotal;
+  private workOutHeightInCentiMeters(height: number): IMetersAndCentiMeters {
+    const cmHeight = height / 10;
+    let ms = 0;
+    if (cmHeight >= 1) ms = Math.floor(cmHeight);
+    return {
+      meters: ms,
+      centiMeters: Math.floor((cmHeight - Math.floor(cmHeight)) * 100),
+    };
+  }
+  private workOutWeightInKilosAndGrams(weight: number): IKilosAndGrams {
+    const gramWeight = weight * 100;
+    let kilos = 0;
+    if (gramWeight >= 1000) kilos = Math.floor(weight / 10);
+    return {
+      kilos: kilos,
+      grams: gramWeight % (kilos * 1000),
+    };
+  }
   private getStatAverage(stats: Istats[]): number {
     let statAvg = 0;
     stats.forEach((element: Istats) => {
@@ -46,8 +66,8 @@ class PokemonFull {
     this.Id = pokemonDetails.id;
     this.PokemonName = pokemonDetails.name;
     this.BaseXP = pokemonDetails.base_experience;
-    this.Height = pokemonDetails.height;
-    this.Weight = pokemonDetails.weight;
+    this.Height = this.workOutHeightInCentiMeters(pokemonDetails.height);
+    this.Weight = this.workOutWeightInKilosAndGrams(pokemonDetails.weight);
     this.Abilties = pokemonDetails.abilities;
     this.GameVersions = pokemonDetails.game_indices;
     this.Moves = pokemonDetails.moves;

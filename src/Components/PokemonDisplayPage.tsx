@@ -93,6 +93,15 @@ function PokemonInfo(props: IPokemonInfoPropsArgs): JSX.Element {
               );
             })}
           </div>
+          <h3>
+            Height: {Pokemon.Height.meters > 0 && `${Pokemon.Height.meters}m `}
+            {Pokemon.Height.centiMeters > 0 &&
+              `${Pokemon.Height.centiMeters}cm`}
+          </h3>
+          <h3>
+            Weight: {Pokemon.Weight.kilos > 0 && `${Pokemon.Weight.kilos}kg `}
+            {Pokemon.Weight.grams > 0 && `${Pokemon.Weight.grams}g`}
+          </h3>
           <StatTable stats={Pokemon.Stats} />
         </div>
       </div>

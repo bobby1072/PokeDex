@@ -55,6 +55,15 @@ export interface IPokemonFullConstructorArgs {
   types: Itype[];
   weight: number;
 }
+export interface IMetersAndCentiMeters {
+  meters: number;
+  centiMeters: number;
+}
+
+export interface IKilosAndGrams {
+  kilos: number;
+  grams: number;
+}
 export interface ISprites {
   back_default?: string;
   back_female?: string;
