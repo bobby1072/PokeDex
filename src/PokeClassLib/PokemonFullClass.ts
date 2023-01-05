@@ -87,8 +87,8 @@ class PokemonFull {
     } else if (this.Types.length === 2) {
       const damageMap: Map<string, number> = new Map<string, number>();
       const damageCatIndex: Map<number, string> = new Map<number, string>();
-      damageCatIndex.set(-2, "double_damage_from");
-      damageCatIndex.set(-4, "four_times_damage_from");
+      damageCatIndex.set(2, "double_damage_from");
+      damageCatIndex.set(4, "four_times_damage_from");
       damageCatIndex.set(2, "double_damage_to");
       damageCatIndex.set(4, "four_times_damage_to");
       damageCatIndex.set(1, "half_damage_from");
@@ -110,24 +110,6 @@ class PokemonFull {
                 damageMap.get(ele.name);
               if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 / 2);
               else damageMap.set(ele.name, checkIfDamageAlreadyExists / 2);
-            }
-          );
-        element.DamageRelations &&
-          element.DamageRelations.half_damage_from.forEach(
-            (ele: IlowLevelRef) => {
-              const checkIfDamageAlreadyExists: number | undefined =
-                damageMap.get(ele.name);
-              if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 / 2);
-              else damageMap.set(ele.name, checkIfDamageAlreadyExists / 2);
-            }
-          );
-        element.DamageRelations &&
-          element.DamageRelations.half_damage_to.forEach(
-            (ele: IlowLevelRef) => {
-              const checkIfDamageAlreadyExists: number | undefined =
-                damageMap.get(ele.name);
-              if (!checkIfDamageAlreadyExists) damageMap.set(ele.name, 1 * 2);
-              else damageMap.set(ele.name, checkIfDamageAlreadyExists * 2);
             }
           );
       });
