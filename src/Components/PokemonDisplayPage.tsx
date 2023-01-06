@@ -80,7 +80,17 @@ function PokemonInfo(props: IPokemonInfoPropsArgs): JSX.Element {
         <div className="pokemonDisplayPageDiv">
           <h1>Name: {Pokemon.PokemonName}</h1>
           <h2>Id: {Pokemon.Id}</h2>
-          <img src={Pokemon.SpriteImageUrl} alt="PokemonImage" />
+          {(Pokemon.SpriteImageUrl.frontDefault ||
+            Pokemon.SpriteImageUrl.frontShiny) && (
+            <img
+              src={
+                Pokemon.SpriteImageUrl.frontDefault
+                  ? Pokemon.SpriteImageUrl.frontDefault
+                  : Pokemon.SpriteImageUrl.frontShiny
+              }
+              alt="PokemonImage"
+            />
+          )}
           <div className="topLevelDiv">
             {Pokemon.Types.map((element) => {
               return (

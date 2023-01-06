@@ -69,8 +69,12 @@ export interface ISprites {
   back_female?: string;
   back_shiny?: string;
   back_female_shiny?: string;
-  front_default: string;
+  front_default?: string;
   front_female?: string;
-  front_shiny: string;
+  front_shiny?: string;
   front_shiny_female?: string;
+}
+export interface IFrontShinyAndDefault {
+  frontDefault?: string;
+  frontShiny?: string;
 }

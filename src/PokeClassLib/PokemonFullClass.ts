@@ -1,10 +1,12 @@
 import {
   Iability,
+  IFrontShinyAndDefault,
   IgameVersions,
   IKilosAndGrams,
   IMetersAndCentiMeters,
   Imoves,
   IPokemonFullConstructorArgs,
+  ISprites,
   Istats,
   IstatsWithAvgAndTotal,
 } from "./Ipokemon";
@@ -13,7 +15,7 @@ class PokemonFull {
   public readonly Id: number;
   public readonly PokemonName: string;
   public readonly BaseXP: number;
-  public readonly SpriteImageUrl: string;
+  public readonly SpriteImageUrl: IFrontShinyAndDefault;
   public readonly Height: IMetersAndCentiMeters;
   public readonly Weight: IKilosAndGrams;
   public readonly Abilties: Iability[];
@@ -61,8 +63,18 @@ class PokemonFull {
       average: this.getStatAverage(allStats),
     };
   }
+  private getSpriteUrls(sprites: ISprites): IFrontShinyAndDefault {
+    const spriteObj: IFrontShinyAndDefault = {};
+    if (sprites.front_default) spriteObj.frontDefault = sprites.front_default;
+    if (sprites.front_shiny) spriteObj.frontShiny = sprites.front_shiny;
+    else if (!spriteObj.frontDefault) {
+      const spriteArray = Object.values(sprites);
+      spriteObj.frontDefault = spriteArray.find((ele) => ele);
+    }
+    return spriteObj;
+  }
   public constructor(pokemonDetails: IPokemonFullConstructorArgs) {
-    this.SpriteImageUrl = pokemonDetails.sprites.front_default;
+    this.SpriteImageUrl = this.getSpriteUrls(pokemonDetails.sprites);
     this.Id = pokemonDetails.id;
     this.PokemonName = pokemonDetails.name;
     this.BaseXP = pokemonDetails.base_experience;
