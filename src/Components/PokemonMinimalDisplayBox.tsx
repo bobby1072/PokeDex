@@ -1,7 +1,6 @@
 import { Box, ThemeProvider, createTheme } from "@mui/system";
 import PokemonFull from "../PokeClassLib/PokemonFullClass";
 import PokemonMinimal from "../PokeClassLib/PokeMonMin";
-
 const theme = createTheme({
   palette: {
     background: {
