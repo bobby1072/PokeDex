@@ -34,6 +34,7 @@ function PokemonMinimalDisplayBox(
     <div className="projects">
       <div
         className="centerDiv--viewCatches"
+        style={{ cursor: "pointer" }}
         onClick={async () => {
           await props.PokemonOBJ.fullPokeReq();
           props.PokemonOBJ.PokemonInfo &&
